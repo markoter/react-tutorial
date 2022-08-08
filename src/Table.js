@@ -1,15 +1,13 @@
 import React from "react";
 
-class Table extends React.Component {
-    render() {
-        const { characterData } = this.props
-        return (
-            <table>
-                <TableHeader />
-                <TableBody characterData={characterData} />
-            </table>
-        )
-    }
+const Table = (props) => {
+    const { characterData, removeCharacter } = props
+    return (
+        <table>
+            <TableHeader />
+            <TableBody characterData={characterData} removeCharacter={removeCharacter} />
+        </table>
+    )
 }
 
 const TableHeader = () => {
@@ -18,6 +16,7 @@ const TableHeader = () => {
             <tr>
                 <th>Name</th>
                 <th>Job</th>
+                <th>Delete</th>
             </tr>
         </thead>
     )
@@ -28,6 +27,10 @@ const TableBody = (props) => {
             <tr key={index}>
                 <td>{row.name}</td>
                 <td>{row.job}</td>
+                <td>
+                    {/*The onClick function must pass through a function that returns the removeCharacter() method, otherwise it will try to run automatically.*/}
+                    <button onClick={() => props.removeCharacter(index)}>Delete</button>
+                </td>
             </tr>
         )
     })
